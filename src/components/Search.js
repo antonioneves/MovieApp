@@ -1,6 +1,5 @@
 import React from 'react';
 import {SearchBar} from 'react-native-elements';
-import {connect, useDispatch} from 'react-redux';
 
 import setSearchTerm from '../actions';
 
