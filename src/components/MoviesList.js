@@ -45,21 +45,6 @@ const Section = ({children, title}): Node => {
   );
 };
 
-var movies = [];
-
-const getMoviesFromApi = (search) => {
-  return fetch('https://www.omdbapi.com?apikey=ea8d3d70&s=' + search)
-    .then((response) => response.json())
-    .then((json) => {
-      if (json.Response === "True") movies = json.Search;
-      else movies = [];
-      console.log(json);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
 function MoviesList(store) {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -67,8 +52,7 @@ function MoviesList(store) {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const search = useSelector(state => state.search);
-  getMoviesFromApi(search);
+  const searchResults = useSelector(state => state.searchResults);
 
   return (
     <ScrollView
@@ -79,8 +63,8 @@ function MoviesList(store) {
           backgroundColor: isDarkMode ? Colors.black : Colors.white,
         }}>
         {
-          movies.map(movie => (
-            <Section>{movie.Title}</Section>
+          searchResults.map((movie, key) => (
+            <Section key={key}>{movie.Title}</Section>
           ))
         }
       </View>
