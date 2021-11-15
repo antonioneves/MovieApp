@@ -5,4 +5,11 @@ const setSearchResults = (search) => {
   }
 }
 
-export default setSearchResults;
+const setMovieDetails = (details) => {
+  return {
+    type: 'SET_MOVIE_DETAILS',
+    payload: details
+  }
+}
+
+export { setSearchResults, setMovieDetails };

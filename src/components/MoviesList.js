@@ -19,23 +19,15 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+const backgroundStyle = {
+  backgroundColor: Colors.darker,
+};
+
+const navigateToMovieScreen = (navigation, id) => {
+  return () => navigation.navigate('Movie Details', {movieId: id});
+}
+
 export default function MoviesList({ store, navigation }) {
-  const backgroundStyle = {
-    backgroundColor: Colors.darker,
-  };
-
-  const naviagteToMovieScreen = () => {
-    navigation.navigate('Movie Details');
-  }
-
-  const Section = ({children}): Node => {
-    return (
-      <View style={styles.sectionContainer}>
-        <Button title={children} onPress={naviagteToMovieScreen} />
-      </View>
-    );
-  };
-
   const searchResults = useSelector(state => state.searchResults);
 
   return (
@@ -46,7 +38,7 @@ export default function MoviesList({ store, navigation }) {
         style={backgroundStyle}>
         {
           searchResults.map((movie, key) => (
-            <Section key={key}>{movie.Title}</Section>
+            <Button key={key} title={movie.Title} onPress={navigateToMovieScreen(navigation, movie.imdbID)}/>
           ))
         }
       </View>

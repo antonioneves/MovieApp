@@ -1,7 +1,7 @@
 import React from 'react';
 import {SearchBar} from 'react-native-elements';
 
-import setSearchResults from '../actions';
+import {setSearchResults} from '../actions';
 
 export default class Search extends React.Component {
   state = {
