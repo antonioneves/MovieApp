@@ -8,8 +8,8 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
+  Button,
 } from 'react-native';
 
 import {
@@ -19,37 +19,21 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-function MoviesList(store) {
-  const isDarkMode = useColorScheme() === 'dark';
-
+export default function MoviesList({ store, navigation }) {
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: Colors.darker,
+  };
+
+  const naviagteToMovieScreen = () => {
+    navigation.navigate('Movie Details');
+  }
+
+  const Section = ({children}): Node => {
+    return (
+      <View style={styles.sectionContainer}>
+        <Button title={children} onPress={naviagteToMovieScreen} />
+      </View>
+    );
   };
 
   const searchResults = useSelector(state => state.searchResults);
@@ -59,9 +43,7 @@ function MoviesList(store) {
       contentInsetAdjustmentBehavior="automatic"
       style={backgroundStyle}>
       <View
-        style={{
-          backgroundColor: isDarkMode ? Colors.black : Colors.white,
-        }}>
+        style={backgroundStyle}>
         {
           searchResults.map((movie, key) => (
             <Section key={key}>{movie.Title}</Section>
@@ -90,5 +72,3 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
-
-export default MoviesList;
