@@ -7,20 +7,22 @@ import {ListItem, Avatar} from 'react-native-elements';
 
 import defaultMovie from '../assets/images/default-movie.png';
 
-const backgroundStyle = {
-  backgroundColor: Colors.darker,
-};
-
-const titleStyle = {
-  color: Colors.white,
-  fontWeight: 'bold',
-};
-
-const subtitleStyle = {
-  color: Colors.white,
-};
-
-const avatarStyle = {width: 50, height: 80};
+const styles = StyleSheet.create({
+  backgroundStyle: { 
+    backgroundColor: Colors.darker,
+  },
+  titleStyle: {
+    color: Colors.white,
+    fontWeight: 'bold',
+  },
+  subtitleStyle: {
+    color: Colors.white,
+  },
+  avatarStyle: {
+    width: 50, 
+    height: 80.
+  },
+});
 
 const navigateToMovieScreen = (navigation, id) => {
   return () => navigation.navigate('Movie Details', {movieId: id});
@@ -32,24 +34,24 @@ export default function MoviesList({store, navigation}) {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      style={backgroundStyle}>
-      <View style={backgroundStyle}>
+      style={styles.backgroundStyle}>
+      <View style={styles.backgroundStyle}>
         {searchResults.map((movie, key) => (
           <ListItem
             key={key}
-            containerStyle={backgroundStyle}
+            containerStyle={styles.backgroundStyle}
             onPress={navigateToMovieScreen(navigation, movie.imdbID)}
             bottomDivider>
             <Avatar
               size="large"
-              avatarStyle={avatarStyle}
+              avatarStyle={styles.avatarStyle}
               source={
                 movie.Poster !== 'N/A' ? {uri: movie.Poster} : defaultMovie
               }
             />
             <ListItem.Content>
-              <ListItem.Title style={titleStyle}>{movie.Title}</ListItem.Title>
-              <ListItem.Subtitle style={subtitleStyle}>
+              <ListItem.Title style={styles.titleStyle}>{movie.Title}</ListItem.Title>
+              <ListItem.Subtitle style={styles.subtitleStyle}>
                 {movie.Year}
               </ListItem.Subtitle>
             </ListItem.Content>
