@@ -1,66 +1,62 @@
 import React from 'react';
 import type {Node} from 'react';
 import {useSelector} from 'react-redux';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {ListItem, Avatar} from 'react-native-elements';
 
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import defaultMovie from '../assets/images/default-movie.png';
 
 const backgroundStyle = {
   backgroundColor: Colors.darker,
 };
 
+const titleStyle = {
+  color: Colors.white,
+  fontWeight: 'bold',
+};
+
+const subtitleStyle = {
+  color: Colors.white,
+};
+
+const avatarStyle = {width: 50, height: 80};
+
 const navigateToMovieScreen = (navigation, id) => {
   return () => navigation.navigate('Movie Details', {movieId: id});
-}
+};
 
-export default function MoviesList({ store, navigation }) {
+export default function MoviesList({store, navigation}) {
   const searchResults = useSelector(state => state.searchResults);
 
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       style={backgroundStyle}>
-      <View
-        style={backgroundStyle}>
-        {
-          searchResults.map((movie, key) => (
-            <Button key={key} title={movie.Title} onPress={navigateToMovieScreen(navigation, movie.imdbID)}/>
-          ))
-        }
+      <View style={backgroundStyle}>
+        {searchResults.map((movie, key) => (
+          <ListItem
+            key={key}
+            containerStyle={backgroundStyle}
+            onPress={navigateToMovieScreen(navigation, movie.imdbID)}
+            bottomDivider>
+            <Avatar
+              size="large"
+              avatarStyle={avatarStyle}
+              source={
+                movie.Poster !== 'N/A' ? {uri: movie.Poster} : defaultMovie
+              }
+            />
+            <ListItem.Content>
+              <ListItem.Title style={titleStyle}>{movie.Title}</ListItem.Title>
+              <ListItem.Subtitle style={subtitleStyle}>
+                {movie.Year}
+              </ListItem.Subtitle>
+            </ListItem.Content>
+            <ListItem.Chevron color="white" />
+          </ListItem>
+        ))}
       </View>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});

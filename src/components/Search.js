@@ -36,6 +36,8 @@ export default class Search extends React.Component {
         placeholder="Type Here..."
         onChangeText={this.updateSearch}
         value={search}
+        clearIcon
+        round
       />
     );
   }
