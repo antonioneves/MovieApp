@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.darker,
     marginLeft: 20,
     marginRight: 20,
+    marginBottom: 20,
   },
   titleText: {
     fontSize: 30,
@@ -56,6 +57,7 @@ function Details() {
       />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
+        showsVerticalScrollIndicator={false}
         style={styles.textViewStyle}>
         <Text style={styles.textGroup}>
           <Text style={styles.titleText}>{movieDetails.Title}</Text>
